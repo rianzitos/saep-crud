@@ -1,0 +1,118 @@
+/* =====================================================
+   MODELO DE ESTILO - SAEP
+   Para mudar o visual, altere só as variáveis abaixo.
+   ===================================================== */
+:root {
+  --cor-primaria:   #2563eb;
+  --cor-primaria-h: #1d4ed8;
+  --cor-secundaria: #e5e7eb;
+  --cor-perigo:     #dc2626;
+  --cor-edit:       #f59e0b;
+  --cor-fundo:      #f3f4f6;
+  --cor-card:       #ffffff;
+  --cor-texto:      #1f2937;
+  --cor-borda:      #d1d5db;
+  --raio:           8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 960px;
+  margin: 40px auto;
+  background: var(--cor-card);
+  padding: 28px;
+  border-radius: var(--raio);
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+.container-form { max-width: 560px; }
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+h1 { font-size: 1.6rem; }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--raio);
+  font-size: .95rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s;
+}
+.btn-primary   { background: var(--cor-primaria); color: #fff; }
+.btn-primary:hover { background: var(--cor-primaria-h); }
+.btn-secondary { background: var(--cor-secundaria); color: var(--cor-texto); }
+.btn-secondary:hover { background: #d1d5db; }
+.btn-small  { padding: 6px 12px; font-size: .85rem; color: #fff; }
+.btn-edit   { background: var(--cor-edit); }
+.btn-danger { background: var(--cor-perigo); }
+
+/* ---------- Alertas ---------- */
+.alerta {
+  padding: 12px 16px;
+  border-radius: var(--raio);
+  margin-bottom: 16px;
+  font-size: .95rem;
+}
+.alerta.sucesso { background: #dcfce7; color: #166534; }
+.alerta.erro    { background: #fee2e2; color: #991b1b; }
+
+/* ---------- Busca ---------- */
+.busca { display: flex; gap: 8px; margin-bottom: 20px; }
+.busca input { flex: 1; }
+
+/* ---------- Tabela ---------- */
+.tabela-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+}
+th { background: var(--cor-fundo); font-size: .85rem; text-transform: uppercase; }
+tbody tr:hover { background: #f9fafb; }
+.vazio { text-align: center; color: #6b7280; padding: 30px; }
+.acoes-col { width: 170px; }
+.acoes { display: flex; gap: 6px; }
+.acoes form { display: inline; }
+
+/* ---------- Formulário ---------- */
+.form .campo { margin-bottom: 16px; flex: 1; }
+.form .linha { display: flex; gap: 16px; }
+label { display: block; margin-bottom: 6px; font-weight: 600; font-size: .9rem; }
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-size: 1rem;
+}
+input:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+.form-botoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 600px) {
+  .container { margin: 0; border-radius: 0; padding: 18px; }
+  .form .linha { flex-direction: column; gap: 0; }
+  .busca { flex-wrap: wrap; }
+}
