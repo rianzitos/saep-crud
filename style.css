@@ -110,6 +110,26 @@ input:focus {
 }
 .form-botoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
 
+/* >>> [ALERTA-ESTOQUE] INÍCIO — estilos do alerta de estoque (para remover: apague desta linha até o marcador final do bloco) <<< */
+/* Faixa amarela de "estoque baixo" e selos da coluna Qtd.
+   A faixa vermelha de "em falta" reaproveita o .alerta.erro lá de cima.
+   >>> REMOVER: é opcional — se a prova NÃO pedir o alerta, deixar este bloco não quebra nada.
+   >>> ADAPTAR: troque as cores se quiser outro visual. */
+.alerta.aviso { background: #fef3c7; color: #92400e; }
+
+.selo {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.selo-falta { background: #fee2e2; color: #991b1b; }
+.selo-baixo { background: #fef3c7; color: #92400e; }
+/* >>> [ALERTA-ESTOQUE] FIM <<< */
+
 /* ---------- Responsivo ---------- */
 @media (max-width: 600px) {
   .container { margin: 0; border-radius: 0; padding: 18px; }
