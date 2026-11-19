@@ -1,7 +1,14 @@
 -- =====================================================
 -- SAEP - Modelo de CRUD
--- Importe este arquivo no phpMyAdmin (aba "Importar")
--- ou rode: mysql -u root -p < banco.sql
+-- COMO EXECUTAR (escolha UM jeito):
+--   • MySQL Workbench: abra a conexão (ex.: "Local instance"), vá em
+--     File > Open SQL Script... > escolha este banco.sql > clique no PRIMEIRO raio (⚡)
+--     da barra do editor (ou Ctrl+Shift+Enter): ele executa o arquivo INTEIRO.
+--     (Não use o raio com um "I" de cursor: esse executa só a linha onde o cursor está.)
+--     Depois clique em "atualizar" (🔄) no painel SCHEMAS, à esquerda: o saep_db aparece lá.
+--   • phpMyAdmin (http://localhost/phpmyadmin): aba "Importar" > escolher arquivo > Executar.
+--   • Terminal: mysql -u root -p < banco.sql
+--   ATENÇÃO: executar de novo APAGA e recria a tabela (os dados cadastrados somem).
 --
 -- >>> ADAPTAR — O QUE MUDAR NESTE ARQUIVO NA PROVA
 --   1) Nome do banco (CREATE DATABASE e USE): tem que ser IGUAL ao $banco do conexao.php

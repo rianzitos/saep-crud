@@ -21,7 +21,7 @@
 //     7) Chave primária com outro nome (ex.: "codigo")? Troque "id" no ORDER BY e
 //        os 3 "$r['id']" da tabela. (O name="id" do form e o ?id= da URL podem ficar.)
 //     8) Alerta de estoque: blocos [ALERTA-ESTOQUE] (manter, ajustar ou remover)
-//     9) Visual (cores/tema): NÃO é aqui. Troque $TEMA no conexao.php (veja o comentário lá).
+//     9) Visual (cores/tema): NÃO é aqui. Troque o conteúdo do style.css (veja o começo dele).
 // =====================================================================
 require 'conexao.php';
 
@@ -91,10 +91,10 @@ $erro = $_GET['erro'] ?? '';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php /* >>> ADAPTAR (3): troque o título da aba do navegador. Ex.: <title>Livros</title> */ ?>
   <title>Produtos</title>
+  <?php /* >>> VISUAL: esta página usa SÓ o style.css (pasta principal).
+             Para trocar o visual, troque o CONTEÚDO do style.css por um dos arquivos da pasta temas/
+             (instruções no começo do style.css). NÃO precisa mexer nesta linha. */ ?>
   <link rel="stylesheet" href="style.css">
-  <?php /* >>> ADAPTAR (VISUAL): o tema é escolhido pela variável $TEMA no conexao.php. NÃO precisa mexer aqui.
-             (Sem tema? Use $TEMA = '' no conexao.php: a linha abaixo deixa de ser carregada.) */ ?>
-  <?php if ($TEMA !== ''): ?><link rel="stylesheet" href="temas/<?= e($TEMA) ?>.css"><?php endif; ?>
 </head>
 
 <body>
