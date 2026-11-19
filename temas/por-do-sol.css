@@ -1,0 +1,70 @@
+/* =====================================================
+   TEMA "POR DO SOL" — gradiente quente (laranja → rosa → roxo) com vidro claro
+   -----------------------------------------------------
+   >>> COMO USAR: no conexao.php deixe   $TEMA = 'por-do-sol';
+   >>> COMO PERSONALIZAR: mude só as cores das variáveis abaixo.
+       • Fundo (as 3 cores do gradiente): --fundo-pagina
+       • Botões (gradiente laranja → rosa): --fundo-primario
+       • Vidro mais transparente: diminua o .72 em --fundo-card
+   Este arquivo é carregado DEPOIS do style.css e sobrescreve as variáveis dele.
+   ===================================================== */
+
+:root {
+  /* Fundo: gradiente de pôr do sol */
+  --fundo-pagina: linear-gradient(135deg, #ff9a3c 0%, #ff5e7e 50%, #8b5cf6 100%);
+
+  /* Caixa de vidro CLARO: branco translúcido + desfoque (por isso o texto é escuro) */
+  --fundo-card:  rgba(255,255,255,.72);
+  --borda-card:  1px solid rgba(255,255,255,.75);
+  --sombra-card: 0 14px 44px rgba(120,30,90,.30);
+  --blur-card:   blur(14px) saturate(160%);
+  --raio:        18px;
+
+  /* Texto e linhas */
+  --cor-texto:       #3b1d4a;
+  --cor-texto-suave: #7c5a8a;
+  --cor-borda:       rgba(59,29,74,.18);
+
+  /* Botões */
+  --cor-primaria:     #db2777;
+  --cor-primaria-h:   #be185d;
+  --fundo-primario:   linear-gradient(135deg, #ea580c, #db2777);
+  --fundo-primario-h: linear-gradient(135deg, #c2410c, #be185d);
+  --texto-btn-primario: #ffffff;
+  --cor-secundaria:   rgba(255,255,255,.7);
+  --cor-secundaria-h: rgba(255,255,255,.95);
+  --texto-btn-sec:    #3b1d4a;
+  --cor-edit:         #b45309;
+  --cor-perigo:       #b91c1c;
+  --texto-btn-pequeno: #ffffff;
+
+  /* Tabela */
+  --fundo-th:    rgba(139,92,246,.14);
+  --texto-th:    #6d28d9;
+  --fundo-hover: rgba(255,255,255,.6);
+
+  /* Campos do formulário */
+  --fundo-input:     rgba(255,255,255,.85);
+  --texto-input:     #3b1d4a;
+  --cor-placeholder: #9b7fae;
+  --anel-foco:       rgba(219,39,119,.28);
+
+  /* Alertas (sucesso / em falta / estoque baixo) */
+  --sucesso-fundo: #dcfce7; --sucesso-texto: #166534;
+  --erro-fundo:    #fee2e2; --erro-texto:    #991b1b;
+  --aviso-fundo:   #fef3c7; --aviso-texto:   #92400e;
+}
+
+/* Toques extras: título com gradiente e botões mais "cheios" */
+.btn-primary { font-weight: 600; box-shadow: 0 6px 18px rgba(219,39,119,.35); }
+.btn-primary:hover { transform: translateY(-1px); }
+h1 { font-weight: 800; color: #7c2d6b; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  h1 {
+    background: linear-gradient(90deg, #ea580c, #db2777, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}

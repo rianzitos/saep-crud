@@ -1,0 +1,62 @@
+/* =====================================================
+   TEMA "FLORESTA" — verde limpo e suave, claro, com cantos bem arredondados
+   -----------------------------------------------------
+   >>> COMO USAR: no conexao.php deixe   $TEMA = 'floresta';
+   >>> COMO PERSONALIZAR: mude só as cores das variáveis abaixo.
+       • Quer outra cor (ex.: roxo, laranja)? Troque os verdes de
+         --cor-primaria, --fundo-primario, --fundo-pagina, --texto-th e --fundo-th
+       • Fundo: --fundo-pagina
+   Este arquivo é carregado DEPOIS do style.css e sobrescreve as variáveis dele.
+   ===================================================== */
+
+:root {
+  /* Fundo: gradiente verde bem clarinho */
+  --fundo-pagina: linear-gradient(160deg, #ecfdf5 0%, #d1fae5 55%, #a7f3d0 100%);
+
+  /* Caixa branca com sombra suave (sem vidro) */
+  --fundo-card:  #ffffff;
+  --borda-card:  1px solid #d1fae5;
+  --sombra-card: 0 12px 32px rgba(6,95,70,.14);
+  --raio:        14px;
+
+  /* Texto e linhas */
+  --cor-texto:       #14352a;
+  --cor-texto-suave: #5b7a6c;
+  --cor-borda:       #d4eadd;
+
+  /* Botões */
+  --cor-primaria:     #15803d;
+  --cor-primaria-h:   #166534;
+  --fundo-primario:   linear-gradient(135deg, #16a34a, #15803d);
+  --fundo-primario-h: linear-gradient(135deg, #15803d, #166534);
+  --texto-btn-primario: #ffffff;
+  --cor-secundaria:   #dcfce7;
+  --cor-secundaria-h: #bbf7d0;
+  --texto-btn-sec:    #14532d;
+  --cor-edit:         #b45309;
+  --cor-perigo:       #b91c1c;
+  --texto-btn-pequeno: #ffffff;
+
+  /* Tabela */
+  --fundo-th:    #ecfdf5;
+  --texto-th:    #065f46;
+  --fundo-hover: #dcfce7;
+
+  /* Campos do formulário */
+  --fundo-input:     #ffffff;
+  --texto-input:     #14352a;
+  --cor-placeholder: #7fa08f;
+  --anel-foco:       rgba(21,128,61,.22);
+
+  /* Alertas (sucesso / em falta / estoque baixo) */
+  --sucesso-fundo: #d1fae5; --sucesso-texto: #065f46;
+  --erro-fundo:    #fee2e2; --erro-texto:    #991b1b;
+  --aviso-fundo:   #fef3c7; --aviso-texto:   #92400e;
+}
+
+/* Toques extras: faixa verde no topo da caixa e tabela zebrada */
+.container { border-top: 6px solid #16a34a; }
+h1 { color: #065f46; }
+tbody tr:nth-child(even) { background: #f6fdf9; }
+tbody tr:hover { background: var(--fundo-hover); }   /* repete o hover para ganhar da zebra */
+.btn-primary { font-weight: 600; box-shadow: 0 4px 12px rgba(21,128,61,.28); }
