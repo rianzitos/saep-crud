@@ -1,0 +1,67 @@
+/* =====================================================
+   TEMA "OCEANO" — glassmorphism (vidro fosco) azul/ciano, tema escuro
+   -----------------------------------------------------
+   >>> COMO USAR: no conexao.php deixe   $TEMA = 'oceano';
+   >>> COMO PERSONALIZAR: mude só as cores das variáveis abaixo.
+       • Trocar a cor do destaque (botões): --cor-primaria e --fundo-primario
+       • Trocar o fundo da página:          --fundo-pagina
+       • Deixar o vidro mais claro/escuro:  --fundo-card (o último número do rgba é a opacidade)
+   Este arquivo é carregado DEPOIS do style.css e sobrescreve as variáveis dele.
+   ===================================================== */
+
+:root {
+  color-scheme: dark;   /* faz ícones nativos (calendário da data, seta do select) ficarem claros */
+
+  /* Fundo: gradiente azul-escuro → petróleo, com "manchas" de luz atrás do vidro
+     (é a mancha colorida que faz o efeito de desfoque aparecer). */
+  --fundo-pagina:
+    radial-gradient(circle at 12% 18%, rgba(34,211,238,.45) 0%, transparent 38%),
+    radial-gradient(circle at 88% 82%, rgba(167,139,250,.45) 0%, transparent 40%),
+    linear-gradient(135deg, #0b1f4d 0%, #0b4f7a 50%, #0e7490 100%);
+
+  /* Caixa de vidro: fundo translúcido + borda clara + desfoque do que está atrás */
+  --fundo-card:  rgba(10, 35, 80, .42);
+  --borda-card:  1px solid rgba(255,255,255,.28);
+  --sombra-card: 0 12px 40px rgba(0,0,0,.35);
+  --blur-card:   blur(18px) saturate(160%);
+  --raio:        16px;
+
+  /* Texto e linhas */
+  --cor-texto:       #f0f9ff;
+  --cor-texto-suave: #bae6fd;
+  --cor-borda:       rgba(255,255,255,.22);
+
+  /* Botões */
+  --cor-primaria:     #22d3ee;
+  --cor-primaria-h:   #06b6d4;
+  --fundo-primario:   linear-gradient(135deg, #22d3ee, #3b82f6);
+  --fundo-primario-h: linear-gradient(135deg, #67e8f9, #60a5fa);
+  --texto-btn-primario: #05213a;
+  --cor-secundaria:   rgba(255,255,255,.16);
+  --cor-secundaria-h: rgba(255,255,255,.28);
+  --texto-btn-sec:    #ffffff;
+  --cor-edit:         #fbbf24;
+  --cor-perigo:       #fb7185;
+  --texto-btn-pequeno: #05213a;
+
+  /* Tabela */
+  --fundo-th:    rgba(255,255,255,.10);
+  --texto-th:    #e0f2fe;
+  --fundo-hover: rgba(255,255,255,.08);
+
+  /* Campos do formulário */
+  --fundo-input:     rgba(255,255,255,.12);
+  --texto-input:     #ffffff;
+  --cor-placeholder: rgba(255,255,255,.55);
+  --anel-foco:       rgba(34,211,238,.35);
+
+  /* Alertas (sucesso / em falta / estoque baixo) */
+  --sucesso-fundo: rgba(52,211,153,.22);  --sucesso-texto: #a7f3d0;
+  --erro-fundo:    rgba(251,113,133,.25); --erro-texto:    #fecdd3;
+  --aviso-fundo:   rgba(251,191,36,.25);  --aviso-texto:   #fde68a;
+}
+
+/* Toques extras */
+h1 { text-shadow: 0 2px 14px rgba(0,0,0,.35); letter-spacing: .3px; }
+.btn-primary { font-weight: 600; box-shadow: 0 4px 16px rgba(34,211,238,.35); }
+.btn-primary:hover { transform: translateY(-1px); }

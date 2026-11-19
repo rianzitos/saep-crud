@@ -1,0 +1,78 @@
+/* =====================================================
+   TEMA "NEON" — dark mode estilo cyberpunk, com brilho ciano / rosa / roxo
+   -----------------------------------------------------
+   >>> COMO USAR: no conexao.php deixe   $TEMA = 'neon';
+   >>> COMO PERSONALIZAR: mude só as cores das variáveis abaixo.
+       • Cor do brilho principal: troque  #22d3ee  (ciano) por outra cor,
+         e também os rgba(34,211,238,...) correspondentes
+       • Cor do botão: --fundo-primario (é um gradiente ciano → roxo)
+       • Fundo: --fundo-pagina
+   Este arquivo é carregado DEPOIS do style.css e sobrescreve as variáveis dele.
+   ===================================================== */
+
+:root {
+  color-scheme: dark;   /* faz ícones nativos (calendário da data, seta do select) ficarem claros */
+  --fonte: 'Segoe UI', system-ui, Arial, sans-serif;
+
+  /* Fundo quase preto com duas "luzes" coloridas nos cantos */
+  --fundo-pagina:
+    radial-gradient(circle at 12% 8%,  #4c1d95 0%, transparent 42%),
+    radial-gradient(circle at 90% 92%, #0e7490 0%, transparent 42%),
+    #0a0a14;
+
+  /* Caixa escura com borda e brilho neon */
+  --fundo-card:  rgba(18,18,38,.85);
+  --borda-card:  1px solid rgba(34,211,238,.5);
+  --sombra-card: 0 0 0 1px rgba(255,46,136,.18), 0 0 32px rgba(34,211,238,.2), 0 0 90px rgba(168,85,247,.15);
+  --blur-card:   blur(8px);
+  --raio:        10px;
+
+  /* Texto e linhas */
+  --cor-texto:       #e5e7ff;
+  --cor-texto-suave: #8b8bb5;
+  --cor-borda:       #2e2e55;
+
+  /* Botões */
+  --cor-primaria:     #22d3ee;
+  --cor-primaria-h:   #67e8f9;
+  --fundo-primario:   linear-gradient(90deg, #22d3ee, #a855f7);
+  --fundo-primario-h: linear-gradient(90deg, #67e8f9, #c084fc);
+  --texto-btn-primario: #07070f;
+  --cor-secundaria:   #23234a;
+  --cor-secundaria-h: #31316a;
+  --texto-btn-sec:    #e5e7ff;
+  --cor-edit:         #facc15;
+  --cor-perigo:       #ff2e88;
+  --texto-btn-pequeno: #07070f;
+
+  /* Tabela */
+  --fundo-th:    rgba(34,211,238,.08);
+  --texto-th:    #22d3ee;
+  --fundo-hover: rgba(168,85,247,.12);
+
+  /* Campos do formulário */
+  --fundo-input:     rgba(255,255,255,.06);
+  --texto-input:     #ffffff;
+  --cor-placeholder: #6b6b9a;
+  --anel-foco:       rgba(34,211,238,.4);
+
+  /* Alertas (sucesso / em falta / estoque baixo) */
+  --sucesso-fundo: rgba(52,211,153,.16); --sucesso-texto: #6ee7b7;
+  --erro-fundo:    rgba(255,46,136,.18); --erro-texto:    #ff9ec7;
+  --aviso-fundo:   rgba(250,204,21,.16); --aviso-texto:   #fde047;
+}
+
+/* Toques extras: brilho no título, nos botões e nos campos */
+h1 {
+  font-family: Consolas, 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(34,211,238,.9), 0 0 22px rgba(168,85,247,.7);
+}
+th { letter-spacing: .08em; }
+.btn-primary       { font-weight: 700; box-shadow: 0 0 18px rgba(34,211,238,.45); }
+.btn-primary:hover { box-shadow: 0 0 28px rgba(168,85,247,.7); }
+.btn-edit:hover    { box-shadow: 0 0 14px rgba(250,204,21,.6); }
+.btn-danger:hover  { box-shadow: 0 0 14px rgba(255,46,136,.7); }
+input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 3px var(--anel-foco), 0 0 18px rgba(34,211,238,.35); }

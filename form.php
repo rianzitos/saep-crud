@@ -13,6 +13,7 @@
 //     2) Array $registro: uma chave para CADA campo do formulário
 //     3) $titulo da página ("Editar Produto" / "Novo Produto")
 //     4) Os campos <input>: um bloco <div class="campo"> para cada coluna
+//     5) Visual (cores/tema): NÃO é aqui. Troque $TEMA no conexao.php (veja o comentário lá).
 //
 //     REGRA IMPORTANTE: o name="..." de cada <input> aqui tem que ser IGUAL ao
 //     $_POST['...'] lido no salvar.php, e o nome em $registro['...'] tem que ser
@@ -55,6 +56,8 @@ $erro   = $_GET['erro'] ?? '';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= e($titulo) ?></title>
   <link rel="stylesheet" href="style.css">
+  <?php /* >>> ADAPTAR (VISUAL): o tema é escolhido pela variável $TEMA no conexao.php. NÃO precisa mexer aqui. */ ?>
+  <?php if ($TEMA !== ''): ?><link rel="stylesheet" href="temas/<?= e($TEMA) ?>.css"><?php endif; ?>
 </head>
 <body>
   <main class="container container-form">

@@ -21,6 +21,7 @@
 //     7) Chave primária com outro nome (ex.: "codigo")? Troque "id" no ORDER BY e
 //        os 3 "$r['id']" da tabela. (O name="id" do form e o ?id= da URL podem ficar.)
 //     8) Alerta de estoque: blocos [ALERTA-ESTOQUE] (manter, ajustar ou remover)
+//     9) Visual (cores/tema): NÃO é aqui. Troque $TEMA no conexao.php (veja o comentário lá).
 // =====================================================================
 require 'conexao.php';
 
@@ -90,6 +91,9 @@ $erro = $_GET['erro'] ?? '';
   <?php /* >>> ADAPTAR (3): troque o título da aba do navegador. Ex.: <title>Livros</title> */ ?>
   <title>Produtos</title>
   <link rel="stylesheet" href="style.css">
+  <?php /* >>> ADAPTAR (VISUAL): o tema é escolhido pela variável $TEMA no conexao.php. NÃO precisa mexer aqui.
+             (Sem tema? Use $TEMA = '' no conexao.php: a linha abaixo deixa de ser carregada.) */ ?>
+  <?php if ($TEMA !== ''): ?><link rel="stylesheet" href="temas/<?= e($TEMA) ?>.css"><?php endif; ?>
 </head>
 <body>
   <main class="container">
