@@ -31,11 +31,11 @@ $busca = trim($_GET['busca'] ?? '');
 //     • Buscar em mais uma coluna? Acrescente:  OR outra_coluna LIKE :b
 //     • Outra ordem? Troque o ORDER BY. Ex.: ORDER BY nome ASC (A→Z)  |  ORDER BY preco DESC
 if ($busca !== '') {
-    $stmt = $pdo->prepare("SELECT * FROM produtos WHERE nome LIKE :b OR descricao LIKE :b ORDER BY id DESC");
-    $stmt->execute([':b' => "%$busca%"]);
+  $stmt = $pdo->prepare("SELECT * FROM produtos WHERE nome LIKE :b OR descricao LIKE :b ORDER BY id DESC");
+  $stmt->execute([':b' => "%$busca%"]);
 } else {
-    // >>> ADAPTAR (1): aqui também troque "produtos" (e o ORDER BY, se mudou acima).
-    $stmt = $pdo->query("SELECT * FROM produtos ORDER BY id DESC");
+  // >>> ADAPTAR (1): aqui também troque "produtos" (e o ORDER BY, se mudou acima).
+  $stmt = $pdo->query("SELECT * FROM produtos ORDER BY id DESC");
 }
 $registros = $stmt->fetchAll();
 
@@ -60,30 +60,31 @@ $registros = $stmt->fetchAll();
 $ALERTA_ESTOQUE_ATIVO = true;   // true = mostra os alertas | false = desliga tudo
 $LIMITE_ESTOQUE_BAIXO = 5;      // de 1 até este valor = "estoque baixo" (0 = "em falta")
 
-$emFalta      = [];   // ex.: ['Headset USB']
+$emFalta = [];   // ex.: ['Headset USB']
 $estoqueBaixo = [];   // ex.: ['Webcam Full HD (3 un.)']
 
 if ($ALERTA_ESTOQUE_ATIVO) {
-    $stmtAlerta = $pdo->prepare(
-        "SELECT nome, quantidade FROM produtos WHERE quantidade <= :limite ORDER BY quantidade, nome"
-    );
-    $stmtAlerta->execute([':limite' => $LIMITE_ESTOQUE_BAIXO]);
+  $stmtAlerta = $pdo->prepare(
+    "SELECT nome, quantidade FROM produtos WHERE quantidade <= :limite ORDER BY quantidade, nome"
+  );
+  $stmtAlerta->execute([':limite' => $LIMITE_ESTOQUE_BAIXO]);
 
-    foreach ($stmtAlerta->fetchAll() as $item) {
-        if ((int)$item['quantidade'] <= 0) {
-            $emFalta[] = $item['nome'];
-        } else {
-            $estoqueBaixo[] = $item['nome'] . ' (' . $item['quantidade'] . ' un.)';
-        }
+  foreach ($stmtAlerta->fetchAll() as $item) {
+    if ((int) $item['quantidade'] <= 0) {
+      $emFalta[] = $item['nome'];
+    } else {
+      $estoqueBaixo[] = $item['nome'] . ' (' . $item['quantidade'] . ' un.)';
     }
+  }
 }
 // >>> [ALERTA-ESTOQUE] BLOCO 1 de 3 (PHP) — FIM <<<
 
-$msg  = $_GET['msg']  ?? '';
+$msg = $_GET['msg'] ?? '';
 $erro = $_GET['erro'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,6 +92,7 @@ $erro = $_GET['erro'] ?? '';
   <title>Produtos</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main class="container">
     <header class="topo">
@@ -99,8 +101,10 @@ $erro = $_GET['erro'] ?? '';
       <a href="form.php" class="btn btn-primary">+ Novo</a>
     </header>
 
-    <?php if ($msg):  ?><div class="alerta sucesso"><?= e($msg) ?></div><?php endif; ?>
-    <?php if ($erro): ?><div class="alerta erro"><?= e($erro) ?></div><?php endif; ?>
+    <?php if ($msg): ?>
+      <div class="alerta sucesso"><?= e($msg) ?></div><?php endif; ?>
+    <?php if ($erro): ?>
+      <div class="alerta erro"><?= e($erro) ?></div><?php endif; ?>
 
     <?php /* >>> [ALERTA-ESTOQUE] BLOCO 2 de 3 (faixas de aviso) — INÍCIO (para remover: apague desta linha até o marcador final do bloco) <<< */ ?>
     <?php
@@ -150,7 +154,9 @@ $erro = $_GET['erro'] ?? '';
         <tbody>
           <?php /* >>> ADAPTAR (6): colspan = número total de <th> acima. Hoje são 6; com 7 colunas, use 7. */ ?>
           <?php if (!$registros): ?>
-            <tr><td colspan="6" class="vazio">Nenhum registro encontrado.</td></tr>
+            <tr>
+              <td colspan="6" class="vazio">Nenhum registro encontrado.</td>
+            </tr>
           <?php endif; ?>
 
           <?php foreach ($registros as $r): ?>
@@ -181,9 +187,9 @@ $erro = $_GET['erro'] ?? '';
                        (e também na linha de cima, que mostra o número). */
                 ?>
                 <?php if ($ALERTA_ESTOQUE_ATIVO): ?>
-                  <?php if ((int)$r['quantidade'] <= 0): ?>
+                  <?php if ((int) $r['quantidade'] <= 0): ?>
                     <span class="selo selo-falta">Em falta</span>
-                  <?php elseif ((int)$r['quantidade'] <= $LIMITE_ESTOQUE_BAIXO): ?>
+                  <?php elseif ((int) $r['quantidade'] <= $LIMITE_ESTOQUE_BAIXO): ?>
                     <span class="selo selo-baixo">Estoque baixo</span>
                   <?php endif; ?>
                 <?php endif; ?>
@@ -203,4 +209,5 @@ $erro = $_GET['erro'] ?? '';
     </div>
   </main>
 </body>
+
 </html>

@@ -22,7 +22,7 @@
 $host    = 'localhost';
 $banco   = 'saep_db';
 $usuario = 'root';
-$senha   = '123456';
+$senha   = '';
 
 try {
     $pdo = new PDO(
