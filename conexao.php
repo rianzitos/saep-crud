@@ -24,6 +24,31 @@ $banco   = 'saep_db';
 $usuario = 'root';
 $senha   = '123456';
 
+// =====================================================
+// TEMA VISUAL (CSS)
+//
+// >>> ADAPTAR (VISUAL): é AQUI que você escolhe o visual do sistema inteiro.
+//     Troque só o nome entre aspas na linha marcada "TROQUE AQUI" (logo abaixo desta explicação):
+//
+//       'oceano'      → vidro fosco (glassmorphism) azul/ciano, tema escuro
+//       'neon'        → dark estilo cyberpunk, com brilho ciano / rosa / roxo
+//       'por-do-sol'  → gradiente laranja → rosa → roxo com vidro claro
+//       'floresta'    → verde limpo e suave, claro
+//       'brutalista'  → amarelo e rosa, bordas pretas e sombras duras
+//       ''            → visual padrão simples (só o style.css: azul e cinza)
+//
+//     O nome é o do arquivo dentro da pasta  temas/  (sem o .css).
+//     Ex.: 'neon' usa o arquivo  temas/neon.css
+//     Digitou o nome e a página ficou sem o visual do tema? Confira se está IGUAL ao nome do arquivo.
+//
+//     Quer um visual só seu? Copie um tema (ex.: temas/oceano.css → temas/meu.css),
+//     troque as cores das variáveis no começo do arquivo e escreva 'meu' na linha "TROQUE AQUI".
+//
+//     A prova pediu um visual específico, ou não quer tema nenhum? Deixe as aspas VAZIAS ('')
+//     na linha "TROQUE AQUI" e ajuste as cores no :root do style.css.
+// =====================================================
+$TEMA = 'oceano';   // <<< TROQUE AQUI: só o nome entre aspas (esta é a ÚNICA linha que muda o tema)
+
 try {
     $pdo = new PDO(
         "mysql:host=$host;dbname=$banco;charset=utf8mb4",
