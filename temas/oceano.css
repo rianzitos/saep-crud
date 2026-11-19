@@ -1,66 +1,224 @@
 /* =====================================================
-   TEMA "OCEANO" — glassmorphism (vidro fosco) azul/ciano, tema escuro
-   -----------------------------------------------------
-   >>> COMO USAR: no conexao.php deixe   $TEMA = 'oceano';
-   >>> COMO PERSONALIZAR: mude só as cores das variáveis abaixo.
-       • Trocar a cor do destaque (botões): --cor-primaria e --fundo-primario
-       • Trocar o fundo da página:          --fundo-pagina
-       • Deixar o vidro mais claro/escuro:  --fundo-card (o último número do rgba é a opacidade)
-   Este arquivo é carregado DEPOIS do style.css e sobrescreve as variáveis dele.
+   ESTILO DO SISTEMA — tema: OCEANO
+   (glassmorphism: vidro fosco azul/ciano sobre gradiente, tema escuro)
+
+   COMO O CSS FUNCIONA NESTE PROJETO (leia uma vez):
+   • As páginas (index.php e form.php) usam UM ÚNICO arquivo: o  style.css  da pasta principal.
+   • A pasta  temas/  é só um CATÁLOGO com visuais prontos. Nenhuma página usa ela.
+     Depois de escolher o seu, pode APAGAR a pasta temas/ inteira: nada quebra.
+   • O que NÃO pode apagar é o  style.css  (sem ele a página fica sem estilo nenhum).
+
+   >>> ADAPTAR — TROCAR DE VISUAL (3 passos):
+       1) Abra o tema que você quer dentro de  temas/  (ex.: temas/neon.css)
+          e copie TUDO:  Ctrl+A  e depois  Ctrl+C.
+       2) Abra o  style.css  (pasta principal), selecione TUDO com  Ctrl+A
+          e cole por cima com  Ctrl+V.  Salve com  Ctrl+S.
+       3) No navegador, atualize a página com  Ctrl+F5  (força recarregar o CSS).
+       Opções no catálogo: padrao · oceano · neon · por-do-sol · floresta · brutalista
+
+   >>> ADAPTAR — SÓ TROCAR AS CORES: mude os valores das variáveis do :root logo abaixo
+       (cada uma tem um comentário dizendo onde aparece na tela). Ex.: --cor-primaria: #e11d48;
    ===================================================== */
 
 :root {
-  color-scheme: dark;   /* faz ícones nativos (calendário da data, seta do select) ficarem claros */
+  color-scheme: dark;   /* ícones nativos (calendário, seta do select) claros no tema escuro */
 
-  /* Fundo: gradiente azul-escuro → petróleo, com "manchas" de luz atrás do vidro
-     (é a mancha colorida que faz o efeito de desfoque aparecer). */
-  --fundo-pagina:
-    radial-gradient(circle at 12% 18%, rgba(34,211,238,.45) 0%, transparent 38%),
+  /* ---------- CORES BÁSICAS (mexa aqui para trocar a cor do sistema) ---------- */
+  --cor-primaria:     #22d3ee;   /* botões principais, foco dos campos */
+  --cor-primaria-h:   #06b6d4;   /* botão principal ao passar o mouse */
+  --cor-secundaria:   rgba(255,255,255,.16);   /* botões "Cancelar", "Buscar", "Limpar" */
+  --cor-secundaria-h: rgba(255,255,255,.28);   /* idem, ao passar o mouse */
+  --cor-perigo:       #fb7185;   /* botão Excluir */
+  --cor-edit:         #fbbf24;   /* botão Editar */
+  --cor-fundo:        #f3f4f6;   /* cor de fundo simples (usada quando --fundo-pagina = var(--cor-fundo)) */
+  --cor-card:         #ffffff;   /* cor simples da caixa (usada quando --fundo-card = var(--cor-card)) */
+  --cor-texto:        #f0f9ff;   /* texto principal */
+  --cor-texto-suave:  #bae6fd;   /* textos de apoio (ex.: "Nenhum registro") */
+  --cor-borda:        rgba(255,255,255,.22);   /* linhas da tabela e bordas dos campos */
+  --raio:             16px;       /* arredondamento dos cantos */
+  --fonte:            'Segoe UI', Arial, sans-serif;
+
+  /* ---------- DETALHES E EFEITOS (gradiente, vidro, sombras) ---------- */
+  --fundo-pagina:     radial-gradient(circle at 12% 18%, rgba(34,211,238,.45) 0%, transparent 38%),
     radial-gradient(circle at 88% 82%, rgba(167,139,250,.45) 0%, transparent 40%),
-    linear-gradient(135deg, #0b1f4d 0%, #0b4f7a 50%, #0e7490 100%);
+    linear-gradient(135deg, #0b1f4d 0%, #0b4f7a 50%, #0e7490 100%);    /* FUNDO DA PÁGINA: uma cor ou um gradiente */
+  --fundo-card:       rgba(10, 35, 80, .42);     /* FUNDO DA CAIXA CENTRAL (rgba + --blur-card = efeito vidro) */
+  --borda-card:       1px solid rgba(255,255,255,.28);                /* ex.: 1px solid rgba(255,255,255,.3) */
+  --sombra-card:      0 12px 40px rgba(0,0,0,.35);
+  --blur-card:        blur(18px) saturate(160%);                /* ex.: blur(16px) = glassmorphism */
 
-  /* Caixa de vidro: fundo translúcido + borda clara + desfoque do que está atrás */
-  --fundo-card:  rgba(10, 35, 80, .42);
-  --borda-card:  1px solid rgba(255,255,255,.28);
-  --sombra-card: 0 12px 40px rgba(0,0,0,.35);
-  --blur-card:   blur(18px) saturate(160%);
-  --raio:        16px;
-
-  /* Texto e linhas */
-  --cor-texto:       #f0f9ff;
-  --cor-texto-suave: #bae6fd;
-  --cor-borda:       rgba(255,255,255,.22);
-
-  /* Botões */
-  --cor-primaria:     #22d3ee;
-  --cor-primaria-h:   #06b6d4;
-  --fundo-primario:   linear-gradient(135deg, #22d3ee, #3b82f6);
+  --fundo-primario:   linear-gradient(135deg, #22d3ee, #3b82f6);     /* aceita gradiente */
   --fundo-primario-h: linear-gradient(135deg, #67e8f9, #60a5fa);
   --texto-btn-primario: #05213a;
-  --cor-secundaria:   rgba(255,255,255,.16);
-  --cor-secundaria-h: rgba(255,255,255,.28);
-  --texto-btn-sec:    #ffffff;
-  --cor-edit:         #fbbf24;
-  --cor-perigo:       #fb7185;
-  --texto-btn-pequeno: #05213a;
+  --texto-btn-sec:      #ffffff;
+  --texto-btn-pequeno:  #05213a;               /* texto dos botões Editar/Excluir */
 
-  /* Tabela */
-  --fundo-th:    rgba(255,255,255,.10);
-  --texto-th:    #e0f2fe;
-  --fundo-hover: rgba(255,255,255,.08);
+  --fundo-th:         rgba(255,255,255,.10);        /* cabeçalho da tabela */
+  --texto-th:         #e0f2fe;
+  --fundo-hover:      rgba(255,255,255,.08);                 /* linha da tabela ao passar o mouse */
 
-  /* Campos do formulário */
-  --fundo-input:     rgba(255,255,255,.12);
-  --texto-input:     #ffffff;
-  --cor-placeholder: rgba(255,255,255,.55);
-  --anel-foco:       rgba(34,211,238,.35);
+  --fundo-input:      rgba(255,255,255,.12);                 /* campos do formulário */
+  --texto-input:      #ffffff;
+  --cor-placeholder:  rgba(255,255,255,.55);
+  --anel-foco:        rgba(34,211,238,.35);     /* brilho ao clicar num campo */
 
-  /* Alertas (sucesso / em falta / estoque baixo) */
-  --sucesso-fundo: rgba(52,211,153,.22);  --sucesso-texto: #a7f3d0;
-  --erro-fundo:    rgba(251,113,133,.25); --erro-texto:    #fecdd3;
-  --aviso-fundo:   rgba(251,191,36,.25);  --aviso-texto:   #fde68a;
+  --sucesso-fundo:    rgba(52,211,153,.22);  --sucesso-texto: #a7f3d0;
+  --erro-fundo:       rgba(251,113,133,.25);  --erro-texto:    #fecdd3;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--fonte);
+  background: var(--fundo-pagina);
+  background-attachment: fixed;
+  color: var(--cor-texto);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 960px;
+  margin: 40px auto;
+  background: var(--fundo-card);
+  padding: 28px;
+  border-radius: var(--raio);
+  border: var(--borda-card);
+  box-shadow: var(--sombra-card);
+  -webkit-backdrop-filter: var(--blur-card);
+  backdrop-filter: var(--blur-card);
+}
+.container-form { max-width: 560px; }
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+h1 { font-size: 1.6rem; }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--raio);
+  font-family: inherit;
+  font-size: .95rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .15s;
+}
+.btn-primary   { background: var(--fundo-primario); color: var(--texto-btn-primario); }
+.btn-primary:hover { background: var(--fundo-primario-h); }
+.btn-secondary { background: var(--cor-secundaria); color: var(--texto-btn-sec); }
+.btn-secondary:hover { background: var(--cor-secundaria-h); }
+.btn-small  { padding: 6px 12px; font-size: .85rem; color: var(--texto-btn-pequeno); }
+.btn-edit   { background: var(--cor-edit); }
+.btn-danger { background: var(--cor-perigo); }
+
+/* ---------- Alertas ---------- */
+.alerta {
+  padding: 12px 16px;
+  border-radius: var(--raio);
+  margin-bottom: 16px;
+  font-size: .95rem;
+}
+.alerta.sucesso { background: var(--sucesso-fundo); color: var(--sucesso-texto); }
+.alerta.erro    { background: var(--erro-fundo);    color: var(--erro-texto); }
+
+/* ---------- Busca ---------- */
+.busca { display: flex; gap: 8px; margin-bottom: 20px; }
+.busca input { flex: 1; }
+
+/* ---------- Tabela ---------- */
+.tabela-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+}
+th { background: var(--fundo-th); color: var(--texto-th); font-size: .85rem; text-transform: uppercase; }
+tbody tr:hover { background: var(--fundo-hover); }
+.vazio { text-align: center; color: var(--cor-texto-suave); padding: 30px; }
+.acoes-col { width: 170px; }
+/* Botões Editar/Excluir lado a lado dentro da célula.
+   (Não use display:flex no próprio <td>: isso tira a célula do alinhamento da tabela
+   e as linhas de borda das linhas ficam desencontradas.) */
+.acoes { white-space: nowrap; }
+.acoes .btn, .acoes form { display: inline-block; vertical-align: middle; }
+.acoes form { margin-left: 2px; }
+
+/* ---------- Formulário ---------- */
+.form .campo { margin-bottom: 16px; flex: 1; }
+.form .linha { display: flex; gap: 16px; }
+label { display: block; margin-bottom: 6px; font-weight: 600; font-size: .9rem; }
+
+/* Estilo dos campos. Já cobre os tipos mais comuns: se a prova pedir data, e-mail,
+   senha, lista suspensa (select) ou texto longo (textarea), eles já ficam com o mesmo visual. */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--fundo-input);
+  color: var(--texto-input);
+}
+textarea { resize: vertical; }
+::placeholder { color: var(--cor-placeholder); opacity: 1; }
+select option { background: #ffffff; color: #111111; }  /* lista aberta sempre legível */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px var(--anel-foco);
+}
+.form-botoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+
+/* >>> [ALERTA-ESTOQUE] INÍCIO — estilos do alerta de estoque (para remover: apague desta linha até o marcador final do bloco) <<< */
+/* Faixa amarela de "estoque baixo" e selos da coluna Qtd.
+   A faixa vermelha de "em falta" reaproveita o .alerta.erro lá de cima.
+   As cores vêm das variáveis abaixo, então cada tema já adapta o alerta ao seu visual.
+   >>> REMOVER: é opcional — se a prova NÃO pedir o alerta, deixar este bloco não quebra nada.
+   >>> ADAPTAR: troque as cores se quiser outro visual. */
+:root { --aviso-fundo: rgba(251,191,36,.25); --aviso-texto: #fde68a; }
+
+.alerta.aviso { background: var(--aviso-fundo); color: var(--aviso-texto); }
+
+.selo {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.selo-falta { background: var(--erro-fundo);  color: var(--erro-texto); }
+.selo-baixo { background: var(--aviso-fundo); color: var(--aviso-texto); }
+/* >>> [ALERTA-ESTOQUE] FIM <<< */
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 600px) {
+  .container { margin: 0; border-radius: 0; padding: 18px; }
+  .form .linha { flex-direction: column; gap: 0; }
+  .busca { flex-wrap: wrap; }
+}
+
+/* =====================================================
+   TOQUES DE IDENTIDADE DO TEMA OCEANO
+   (detalhes que dão a cara do tema: brilhos, bordas, sombras...)
+   Pode apagar este bloco se quiser só as cores, sem os efeitos.
+   ===================================================== */
 /* Toques extras */
 h1 { text-shadow: 0 2px 14px rgba(0,0,0,.35); letter-spacing: .3px; }
 .btn-primary { font-weight: 600; box-shadow: 0 4px 16px rgba(34,211,238,.35); }
