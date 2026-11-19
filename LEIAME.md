@@ -4,7 +4,7 @@ Sistema simples de **cadastro de produtos**: listar, buscar, cadastrar, editar e
 com **alerta de estoque** (em falta / estoque baixo). O código é todo comentado para você
 adaptar ao que a prova pedir.
 
-> 🎬 **Prefere ver em vídeo?** Assista ao `tutorial/tutorial-saep-crud.mp4`: mostra tudo
+> 🎬 **Prefere ver em vídeo?** Assista ao `tutorial/tutorial-saep-crud.mp4` (narrado, ~9 min): mostra tudo
 > deste guia, do XAMPP até adaptar o sistema para a prova.
 
 ---
