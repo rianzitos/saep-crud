@@ -73,7 +73,7 @@ body {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1100px;   /* largura da caixa central: aumente se a sua tabela tiver muitas colunas */
   margin: 40px auto;
   background: var(--fundo-card);
   padding: 28px;
@@ -159,6 +159,10 @@ input[type="email"],
 input[type="password"],
 input[type="tel"],
 input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="url"],
+input[type="search"],
 select,
 textarea {
   width: 100%;
@@ -238,7 +242,7 @@ h1 {
 .selo       { border: 2px solid #111; }
 th, td      { border-bottom-width: 2px; }
 input[type="text"], input[type="number"], input[type="email"], input[type="password"],
-input[type="tel"], input[type="date"], select, textarea { border-width: 3px; }
+input[type="tel"], input[type="date"], input[type="time"], input[type="datetime-local"], input[type="url"], input[type="search"], select, textarea { border-width: 3px; }
 input:focus, select:focus, textarea:focus { border-color: #111; box-shadow: 4px 4px 0 #111; }
 
 @media (max-width: 600px) {

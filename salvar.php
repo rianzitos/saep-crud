@@ -52,6 +52,13 @@ $voltar = 'form.php' . ($id > 0 ? "?id=$id&" : '?');
 //     número decimal ........ if (!is_numeric($preco) || $preco < 0)       → 'Preço inválido.'
 //     inteiro (0 ou mais) ... if (!ctype_digit((string)$estoque))           → 'Estoque inválido.'
 //     e-mail ................ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) → 'E-mail inválido.'
+//     opção de lista (select) if (!in_array($status, ['Agendada', 'Cancelada'], true)) → 'Status inválido.'
+//                            (o usuário pode alterar o select pelo navegador: confira também no servidor)
+//     nota entre 0 e 10 ..... if (!is_numeric($nota) || $nota < 0 || $nota > 10)  → 'Nota inválida.'
+//     data (AAAA-MM-DD) ..... $d = DateTime::createFromFormat('Y-m-d', $data);
+//                             if (!$d || $d->format('Y-m-d') !== $data)            → 'Data inválida.'
+//     só dígitos (telefone) . $fone = preg_replace('/\D/', '', $fone);   // tira ( ) - e espaços
+//                             if (!in_array(strlen($fone), [10, 11]))               → 'Telefone inválido.'
 //     Campo opcional (ex.: descrição)? Não precisa de validação.
 //     Campo REMOVIDO? Apague o if dele.
 if ($nome === '') {
@@ -110,6 +117,12 @@ try {
 
     header('Location: index.php?msg=' . urlencode($msg));
 } catch (PDOException $e) {
+    // >>> ADAPTAR (opcional): coluna UNIQUE repetida (ex.: e-mail já cadastrado)? O MySQL devolve o código 1062.
+    //     Para mostrar uma mensagem amigável, antes da linha abaixo coloque:
+    //         if ($e->errorInfo[1] == 1062) {
+    //             header('Location: ' . $voltar . 'erro=' . urlencode('Já existe um registro com este e-mail.'));
+    //             exit;
+    //         }
     header('Location: index.php?erro=' . urlencode('Erro ao salvar: ' . $e->getMessage()));
 }
 exit;
