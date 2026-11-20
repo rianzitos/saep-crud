@@ -47,7 +47,7 @@ $senha   = '';
 //     A prova pediu um visual específico, ou não quer tema nenhum? Deixe as aspas VAZIAS ('')
 //     na linha "TROQUE AQUI" e ajuste as cores no :root do style.css.
 // =====================================================
-$TEMA = 'oceano';   // <<< TROQUE AQUI: só o nome entre aspas (esta é a ÚNICA linha que muda o tema)
+$TEMA = 'por-do-sol';   // <<< TROQUE AQUI: só o nome entre aspas (esta é a ÚNICA linha que muda o tema)
 
 try {
     $pdo = new PDO(
