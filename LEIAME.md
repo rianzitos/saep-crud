@@ -7,6 +7,9 @@ adaptar ao que a prova pedir.
 > 🎬 **Prefere ver em vídeo?** Assista ao `tutorial/tutorial-saep-crud.mp4` (narrado, ~9 min): mostra tudo
 > deste guia, do XAMPP até adaptar o sistema para a prova.
 
+> 🏋️ **Quer treinar antes da prova?** A pasta [`treino/`](treino/LEIAME.md) tem **3 simulados** (biblioteca, clínica e escola),
+> cada um com Fase 1, Fase 2 (mudança de requisito), critérios de nota e **gabarito testado**.
+
 ---
 
 ## 1. Passo a passo do zero (faça na ordem)
