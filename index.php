@@ -21,7 +21,7 @@
 //     7) Chave primária com outro nome (ex.: "codigo")? Troque "id" no ORDER BY e
 //        os 3 "$r['id']" da tabela. (O name="id" do form e o ?id= da URL podem ficar.)
 //     8) Alerta de estoque: blocos [ALERTA-ESTOQUE] (manter, ajustar ou remover)
-//     9) Visual (cores/tema): NÃO é aqui. Troque $TEMA no conexao.php (veja o comentário lá).
+//     9) Visual (cores/tema): NÃO é aqui. Troque o conteúdo do style.css (veja o começo dele).
 // =====================================================================
 require 'conexao.php';
 
@@ -31,6 +31,7 @@ $busca = trim($_GET['busca'] ?? '');
 //     Ex. livros:  SELECT * FROM livros WHERE titulo LIKE :b OR autor LIKE :b ORDER BY id DESC
 //     • Buscar em mais uma coluna? Acrescente:  OR outra_coluna LIKE :b
 //     • Outra ordem? Troque o ORDER BY. Ex.: ORDER BY nome ASC (A→Z)  |  ORDER BY preco DESC
+//       Dois critérios: ORDER BY data_consulta ASC, horario ASC  (primeiro a data, depois a hora)
 if ($busca !== '') {
   $stmt = $pdo->prepare("SELECT * FROM produtos WHERE nome LIKE :b OR descricao LIKE :b ORDER BY id DESC");
   $stmt->execute([':b' => "%$busca%"]);
@@ -91,10 +92,10 @@ $erro = $_GET['erro'] ?? '';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php /* >>> ADAPTAR (3): troque o título da aba do navegador. Ex.: <title>Livros</title> */ ?>
   <title>Produtos</title>
+  <?php /* >>> VISUAL: esta página usa SÓ o style.css (pasta principal).
+             Para trocar o visual, troque o CONTEÚDO do style.css por um dos arquivos da pasta temas/
+             (instruções no começo do style.css). NÃO precisa mexer nesta linha. */ ?>
   <link rel="stylesheet" href="style.css">
-  <?php /* >>> ADAPTAR (VISUAL): o tema é escolhido pela variável $TEMA no conexao.php. NÃO precisa mexer aqui.
-             (Sem tema? Use $TEMA = '' no conexao.php: a linha abaixo deixa de ser carregada.) */ ?>
-  <?php if ($TEMA !== ''): ?><link rel="stylesheet" href="temas/<?= e($TEMA) ?>.css"><?php endif; ?>
 </head>
 
 <body>
@@ -172,6 +173,12 @@ $erro = $_GET['erro'] ?? '';
                  número ....... <td><?= $r['estoque'] ?></td>
                  dinheiro ..... <td>R$ <?= number_format($r['preco'], 2, ',', '.') ?></td>
                  data ......... <td><?= date('d/m/Y', strtotime($r['data_cadastro'])) ?></td>
+                 hora ......... <td><?= substr($r['horario'], 0, 5) ?></td>        (10:30:00 vira 10:30)
+                 coluna CALCULADA (não existe no banco; o PHP calcula na hora com outras colunas):
+                               <td><?= number_format(($r['nota1'] + $r['nota2']) / 2, 1, ',', '.') ?></td>
+                 texto conforme uma regra (ex.: situação do aluno): faça a conta ANTES do <td>, assim:
+                               <?php $media = ($r['nota1'] + $r['nota2']) / 2; ?>
+                               <td><?= $media >= 6 ? 'Aprovado' : 'Reprovado' ?></td>
                Ex. livros: $r['nome'] → $r['titulo'], $r['descricao'] → $r['autor'],
                            $r['quantidade'] → $r['estoque'].
                • ADICIONAR coluna: copie um <td> e troque o nome da coluna dentro de $r['...'].

@@ -1,62 +1,224 @@
 /* =====================================================
-   TEMA "BRUTALISTA" — neo-brutalismo: amarelo + rosa, bordas pretas e sombras duras
-   -----------------------------------------------------
-   >>> COMO USAR: no conexao.php deixe   $TEMA = 'brutalista';
-   >>> COMO PERSONALIZAR: mude só as cores das variáveis abaixo.
-       • Fundo (amarelo com bolinhas): --fundo-pagina
-       • Cor dos botões (rosa): --cor-primaria e --fundo-primario
-       • Cor da borda/sombra (preto): troque  #111  por outra cor nas variáveis
-         --borda-card e --sombra-card e nas regras no fim deste arquivo
-   Este arquivo é carregado DEPOIS do style.css e sobrescreve as variáveis dele.
+   ESTILO DO SISTEMA — tema: BRUTALISTA
+   (neo-brutalismo: amarelo + rosa, bordas pretas e sombras duras)
+
+   COMO O CSS FUNCIONA NESTE PROJETO (leia uma vez):
+   • As páginas (index.php e form.php) usam UM ÚNICO arquivo: o  style.css  da pasta principal.
+   • A pasta  temas/  é só um CATÁLOGO com visuais prontos. Nenhuma página usa ela.
+     Depois de escolher o seu, pode APAGAR a pasta temas/ inteira: nada quebra.
+   • O que NÃO pode apagar é o  style.css  (sem ele a página fica sem estilo nenhum).
+
+   >>> ADAPTAR — TROCAR DE VISUAL (3 passos):
+       1) Abra o tema que você quer dentro de  temas/  (ex.: temas/neon.css)
+          e copie TUDO:  Ctrl+A  e depois  Ctrl+C.
+       2) Abra o  style.css  (pasta principal), selecione TUDO com  Ctrl+A
+          e cole por cima com  Ctrl+V.  Salve com  Ctrl+S.
+       3) No navegador, atualize a página com  Ctrl+F5  (força recarregar o CSS).
+       Opções no catálogo: padrao · oceano · neon · por-do-sol · floresta · brutalista
+
+   >>> ADAPTAR — SÓ TROCAR AS CORES: mude os valores das variáveis do :root logo abaixo
+       (cada uma tem um comentário dizendo onde aparece na tela). Ex.: --cor-primaria: #e11d48;
    ===================================================== */
 
 :root {
-  --fonte: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  /* ---------- CORES BÁSICAS (mexa aqui para trocar a cor do sistema) ---------- */
+  --cor-primaria:     #ff5ea8;   /* botões principais, foco dos campos */
+  --cor-primaria-h:   #ff85bf;   /* botão principal ao passar o mouse */
+  --cor-secundaria:   #ffffff;   /* botões "Cancelar", "Buscar", "Limpar" */
+  --cor-secundaria-h: #f1f1f1;   /* idem, ao passar o mouse */
+  --cor-perigo:       #ff6b6b;   /* botão Excluir */
+  --cor-edit:         #4cc9f0;   /* botão Editar */
+  --cor-fundo:        #f3f4f6;   /* cor de fundo simples (usada quando --fundo-pagina = var(--cor-fundo)) */
+  --cor-card:         #ffffff;   /* cor simples da caixa (usada quando --fundo-card = var(--cor-card)) */
+  --cor-texto:        #111111;   /* texto principal */
+  --cor-texto-suave:  #444444;   /* textos de apoio (ex.: "Nenhum registro") */
+  --cor-borda:        #111111;   /* linhas da tabela e bordas dos campos */
+  --raio:             6px;       /* arredondamento dos cantos */
+  --fonte:            'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
 
-  /* Fundo amarelo com bolinhas */
-  --fundo-pagina: radial-gradient(rgba(0,0,0,.25) 1.4px, transparent 1.4px) 0 0 / 22px 22px, #ffe14d;
+  /* ---------- DETALHES E EFEITOS (gradiente, vidro, sombras) ---------- */
+  --fundo-pagina:     radial-gradient(rgba(0,0,0,.25) 1.4px, transparent 1.4px) 0 0 / 22px 22px, #ffe14d;    /* FUNDO DA PÁGINA: uma cor ou um gradiente */
+  --fundo-card:       #ffffff;     /* FUNDO DA CAIXA CENTRAL (rgba + --blur-card = efeito vidro) */
+  --borda-card:       3px solid #111;                /* ex.: 1px solid rgba(255,255,255,.3) */
+  --sombra-card:      8px 8px 0 #111;
+  --blur-card:        none;                /* ex.: blur(16px) = glassmorphism */
 
-  /* Caixa branca com borda preta grossa e sombra "dura" (sem desfoque) */
-  --fundo-card:  #ffffff;
-  --borda-card:  3px solid #111;
-  --sombra-card: 8px 8px 0 #111;
-  --raio:        6px;
-
-  /* Texto e linhas */
-  --cor-texto:       #111111;
-  --cor-texto-suave: #444444;
-  --cor-borda:       #111111;
-
-  /* Botões */
-  --cor-primaria:     #ff5ea8;
-  --cor-primaria-h:   #ff85bf;
-  --fundo-primario:   #ff5ea8;
+  --fundo-primario:   #ff5ea8;     /* aceita gradiente */
   --fundo-primario-h: #ff85bf;
   --texto-btn-primario: #111111;
-  --cor-secundaria:   #ffffff;
-  --cor-secundaria-h: #f1f1f1;
-  --texto-btn-sec:    #111111;
-  --cor-edit:         #4cc9f0;
-  --cor-perigo:       #ff6b6b;
-  --texto-btn-pequeno: #111111;
+  --texto-btn-sec:      #111111;
+  --texto-btn-pequeno:  #111111;               /* texto dos botões Editar/Excluir */
 
-  /* Tabela */
-  --fundo-th:    #111111;
-  --texto-th:    #ffe14d;
-  --fundo-hover: #fff3b0;
+  --fundo-th:         #111111;        /* cabeçalho da tabela */
+  --texto-th:         #ffe14d;
+  --fundo-hover:      #fff3b0;                 /* linha da tabela ao passar o mouse */
 
-  /* Campos do formulário */
-  --fundo-input:     #ffffff;
-  --texto-input:     #111111;
-  --cor-placeholder: #777777;
-  --anel-foco:       rgba(255,94,168,.55);
+  --fundo-input:      #ffffff;                 /* campos do formulário */
+  --texto-input:      #111111;
+  --cor-placeholder:  #777777;
+  --anel-foco:        rgba(255,94,168,.55);     /* brilho ao clicar num campo */
 
-  /* Alertas (sucesso / em falta / estoque baixo) */
-  --sucesso-fundo: #b9fbc0; --sucesso-texto: #0b3d12;
-  --erro-fundo:    #ffb3b3; --erro-texto:    #5c0a0a;
-  --aviso-fundo:   #ffe14d; --aviso-texto:   #3a2f00;
+  --sucesso-fundo:    #b9fbc0;  --sucesso-texto: #0b3d12;
+  --erro-fundo:       #ffb3b3;  --erro-texto:    #5c0a0a;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--fonte);
+  background: var(--fundo-pagina);
+  background-attachment: fixed;
+  color: var(--cor-texto);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1100px;   /* largura da caixa central: aumente se a sua tabela tiver muitas colunas */
+  margin: 40px auto;
+  background: var(--fundo-card);
+  padding: 28px;
+  border-radius: var(--raio);
+  border: var(--borda-card);
+  box-shadow: var(--sombra-card);
+  -webkit-backdrop-filter: var(--blur-card);
+  backdrop-filter: var(--blur-card);
+}
+.container-form { max-width: 560px; }
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+h1 { font-size: 1.6rem; }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--raio);
+  font-family: inherit;
+  font-size: .95rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .15s;
+}
+.btn-primary   { background: var(--fundo-primario); color: var(--texto-btn-primario); }
+.btn-primary:hover { background: var(--fundo-primario-h); }
+.btn-secondary { background: var(--cor-secundaria); color: var(--texto-btn-sec); }
+.btn-secondary:hover { background: var(--cor-secundaria-h); }
+.btn-small  { padding: 6px 12px; font-size: .85rem; color: var(--texto-btn-pequeno); }
+.btn-edit   { background: var(--cor-edit); }
+.btn-danger { background: var(--cor-perigo); }
+
+/* ---------- Alertas ---------- */
+.alerta {
+  padding: 12px 16px;
+  border-radius: var(--raio);
+  margin-bottom: 16px;
+  font-size: .95rem;
+}
+.alerta.sucesso { background: var(--sucesso-fundo); color: var(--sucesso-texto); }
+.alerta.erro    { background: var(--erro-fundo);    color: var(--erro-texto); }
+
+/* ---------- Busca ---------- */
+.busca { display: flex; gap: 8px; margin-bottom: 20px; }
+.busca input { flex: 1; }
+
+/* ---------- Tabela ---------- */
+.tabela-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+}
+th { background: var(--fundo-th); color: var(--texto-th); font-size: .85rem; text-transform: uppercase; }
+tbody tr:hover { background: var(--fundo-hover); }
+.vazio { text-align: center; color: var(--cor-texto-suave); padding: 30px; }
+.acoes-col { width: 170px; }
+/* Botões Editar/Excluir lado a lado dentro da célula.
+   (Não use display:flex no próprio <td>: isso tira a célula do alinhamento da tabela
+   e as linhas de borda das linhas ficam desencontradas.) */
+.acoes { white-space: nowrap; }
+.acoes .btn, .acoes form { display: inline-block; vertical-align: middle; }
+.acoes form { margin-left: 2px; }
+
+/* ---------- Formulário ---------- */
+.form .campo { margin-bottom: 16px; flex: 1; }
+.form .linha { display: flex; gap: 16px; }
+label { display: block; margin-bottom: 6px; font-weight: 600; font-size: .9rem; }
+
+/* Estilo dos campos. Já cobre os tipos mais comuns: se a prova pedir data, e-mail,
+   senha, lista suspensa (select) ou texto longo (textarea), eles já ficam com o mesmo visual. */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="url"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--fundo-input);
+  color: var(--texto-input);
+}
+textarea { resize: vertical; }
+::placeholder { color: var(--cor-placeholder); opacity: 1; }
+select option { background: #ffffff; color: #111111; }  /* lista aberta sempre legível */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px var(--anel-foco);
+}
+.form-botoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+
+/* >>> [ALERTA-ESTOQUE] INÍCIO — estilos do alerta de estoque (para remover: apague desta linha até o marcador final do bloco) <<< */
+/* Faixa amarela de "estoque baixo" e selos da coluna Qtd.
+   A faixa vermelha de "em falta" reaproveita o .alerta.erro lá de cima.
+   As cores vêm das variáveis abaixo, então cada tema já adapta o alerta ao seu visual.
+   >>> REMOVER: é opcional — se a prova NÃO pedir o alerta, deixar este bloco não quebra nada.
+   >>> ADAPTAR: troque as cores se quiser outro visual. */
+:root { --aviso-fundo: #ffe14d; --aviso-texto: #3a2f00; }
+
+.alerta.aviso { background: var(--aviso-fundo); color: var(--aviso-texto); }
+
+.selo {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.selo-falta { background: var(--erro-fundo);  color: var(--erro-texto); }
+.selo-baixo { background: var(--aviso-fundo); color: var(--aviso-texto); }
+/* >>> [ALERTA-ESTOQUE] FIM <<< */
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 600px) {
+  .container { margin: 0; border-radius: 0; padding: 18px; }
+  .form .linha { flex-direction: column; gap: 0; }
+  .busca { flex-wrap: wrap; }
+}
+
+/* =====================================================
+   TOQUES DE IDENTIDADE DO TEMA BRUTALISTA
+   (detalhes que dão a cara do tema: brilhos, bordas, sombras...)
+   Pode apagar este bloco se quiser só as cores, sem os efeitos.
+   ===================================================== */
 /* Toques extras: bordas pretas e sombras duras em tudo */
 h1 {
   display: inline-block;
@@ -80,7 +242,7 @@ h1 {
 .selo       { border: 2px solid #111; }
 th, td      { border-bottom-width: 2px; }
 input[type="text"], input[type="number"], input[type="email"], input[type="password"],
-input[type="tel"], input[type="date"], select, textarea { border-width: 3px; }
+input[type="tel"], input[type="date"], input[type="time"], input[type="datetime-local"], input[type="url"], input[type="search"], select, textarea { border-width: 3px; }
 input:focus, select:focus, textarea:focus { border-color: #111; box-shadow: 4px 4px 0 #111; }
 
 @media (max-width: 600px) {

@@ -1,20 +1,23 @@
 /* =====================================================
-   ESTILO BASE — SAEP
-   Aqui fica a ESTRUTURA (tabela, formulário, botões, alertas).
-   Todas as cores e efeitos vêm das VARIÁVEIS do :root logo abaixo.
+   ESTILO DO SISTEMA — tema: PADRÃO
+   (simples e limpo, azul e cinza (o visual original))
 
-   >>> ADAPTAR — COMO MUDAR O VISUAL DO SISTEMA (do mais fácil ao mais trabalhoso):
+   COMO O CSS FUNCIONA NESTE PROJETO (leia uma vez):
+   • As páginas (index.php e form.php) usam UM ÚNICO arquivo: o  style.css  da pasta principal.
+   • A pasta  temas/  é só um CATÁLOGO com visuais prontos. Nenhuma página usa ela.
+     Depois de escolher o seu, pode APAGAR a pasta temas/ inteira: nada quebra.
+   • O que NÃO pode apagar é o  style.css  (sem ele a página fica sem estilo nenhum).
 
-     1) TROCAR DE TEMA (recomendado): abra o  conexao.php  e mude a linha
-            $TEMA = 'oceano';
-        para  'neon'  |  'por-do-sol'  |  'floresta'  |  'brutalista'  |  ''  (visual padrão daqui).
-        Os temas ficam na pasta  temas/  e só SOBREPÕEM as variáveis deste arquivo.
-        Você NÃO precisa mexer neste arquivo para trocar de tema.
+   >>> ADAPTAR — TROCAR DE VISUAL (3 passos):
+       1) Abra o tema que você quer dentro de  temas/  (ex.: temas/neon.css)
+          e copie TUDO:  Ctrl+A  e depois  Ctrl+C.
+       2) Abra o  style.css  (pasta principal), selecione TUDO com  Ctrl+A
+          e cole por cima com  Ctrl+V.  Salve com  Ctrl+S.
+       3) No navegador, atualize a página com  Ctrl+F5  (força recarregar o CSS).
+       Opções no catálogo: padrao · oceano · neon · por-do-sol · floresta · brutalista
 
-     2) MUDAR SÓ AS CORES de um tema: abra  temas/nome-do-tema.css  e edite as
-        variáveis do :root no começo do arquivo (cada uma tem um comentário).
-
-     3) VISUAL PADRÃO (sem tema, $TEMA = ''): edite as variáveis do :root aqui embaixo.
+   >>> ADAPTAR — SÓ TROCAR AS CORES: mude os valores das variáveis do :root logo abaixo
+       (cada uma tem um comentário dizendo onde aparece na tela). Ex.: --cor-primaria: #e11d48;
    ===================================================== */
 
 :root {
@@ -25,17 +28,17 @@
   --cor-secundaria-h: #d1d5db;   /* idem, ao passar o mouse */
   --cor-perigo:       #dc2626;   /* botão Excluir */
   --cor-edit:         #f59e0b;   /* botão Editar */
-  --cor-fundo:        #f3f4f6;   /* fundo da página */
-  --cor-card:         #ffffff;   /* fundo da caixa central */
+  --cor-fundo:        #f3f4f6;   /* cor de fundo simples (usada quando --fundo-pagina = var(--cor-fundo)) */
+  --cor-card:         #ffffff;   /* cor simples da caixa (usada quando --fundo-card = var(--cor-card)) */
   --cor-texto:        #1f2937;   /* texto principal */
   --cor-texto-suave:  #6b7280;   /* textos de apoio (ex.: "Nenhum registro") */
   --cor-borda:        #d1d5db;   /* linhas da tabela e bordas dos campos */
   --raio:             8px;       /* arredondamento dos cantos */
   --fonte:            'Segoe UI', Arial, sans-serif;
 
-  /* ---------- DETALHES (os temas mexem nestes; pode ignorar no visual padrão) ---------- */
-  --fundo-pagina:     var(--cor-fundo);    /* aceita gradiente: linear-gradient(...) */
-  --fundo-card:       var(--cor-card);     /* use rgba(...) + --blur-card para efeito vidro */
+  /* ---------- DETALHES E EFEITOS (gradiente, vidro, sombras) ---------- */
+  --fundo-pagina:     var(--cor-fundo);    /* FUNDO DA PÁGINA: uma cor ou um gradiente */
+  --fundo-card:       var(--cor-card);     /* FUNDO DA CAIXA CENTRAL (rgba + --blur-card = efeito vidro) */
   --borda-card:       none;                /* ex.: 1px solid rgba(255,255,255,.3) */
   --sombra-card:      0 2px 10px rgba(0,0,0,.08);
   --blur-card:        none;                /* ex.: blur(16px) = glassmorphism */
@@ -70,7 +73,7 @@ body {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1100px;   /* largura da caixa central: aumente se a sua tabela tiver muitas colunas */
   margin: 40px auto;
   background: var(--fundo-card);
   padding: 28px;
@@ -156,6 +159,10 @@ input[type="email"],
 input[type="password"],
 input[type="tel"],
 input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="url"],
+input[type="search"],
 select,
 textarea {
   width: 100%;
