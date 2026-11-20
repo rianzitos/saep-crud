@@ -179,6 +179,9 @@ textarea {
   color: var(--texto-input);
 }
 textarea { resize: vertical; }
+/* Caixa de marcar e botões de opção: na cor do tema, com espaço e texto normal (não negrito) */
+input[type="checkbox"], input[type="radio"] { margin-right: 8px; accent-color: var(--cor-primaria); }
+.form label:has(> input[type="checkbox"]), .form label:has(> input[type="radio"]) { font-weight: 400; font-size: 1rem; margin-bottom: 8px; cursor: pointer; }
 ::placeholder { color: var(--cor-placeholder); opacity: 1; }
 select option { background: #ffffff; color: #111111; }  /* lista aberta sempre legível */
 input:focus, select:focus, textarea:focus {

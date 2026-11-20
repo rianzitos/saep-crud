@@ -23,11 +23,19 @@ require 'conexao.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
+// >>> ADAPTAR — LISTA SUSPENSA COM OPÇÕES QUE VÊM DO BANCO (ex.: a CATEGORIA do produto)
+//     Se a prova tem uma tabela de categorias, carregue as opções AQUI (copie a linha abaixo, tirando as barras)
+//     e use no <select> mais embaixo (veja "Lista suspensa com opções do BANCO" no comentário
+//     "OUTROS TIPOS DE CAMPO"). Se as opções são poucas e fixas, NÃO precisa disso.
+//         $categorias = $pdo->query("SELECT id, nome FROM categorias ORDER BY nome")->fetchAll();
+
 // >>> ADAPTAR (2): valores padrão do formulário vazio (modo "Novo").
 //     Uma chave para cada campo, com o MESMO NOME da coluna do banco (no modo "editar",
 //     este array é substituído pela linha vinda do banco: $registro = $encontrado).
 //     Ex. livros:    $registro = ['titulo' => '', 'autor' => '', 'preco' => '', 'estoque' => ''];
 //     Campo novo "categoria"?  Acrescente  'categoria' => ''  na lista.
+//     Caixa de marcar (sim/não)?  Acrescente  'ativo' => '0'  (começa desmarcada).
+//     Categoria que vem de OUTRA tabela?  Acrescente  'categoria_id' => ''  (a coluna guarda só o número).
 $registro = ['nome' => '', 'descricao' => '', 'preco' => '', 'quantidade' => ''];
 
 // Se veio id, carrega o registro para edição
@@ -120,12 +128,43 @@ $erro   = $_GET['erro'] ?? '';
            E-mail:          <input type="email" id="email" name="email" required value="<?= e($registro['email']) ?>">
            Inteiro:         <input type="number" min="0" ...>
            Decimal:         <input type="number" step="0.01" min="0" ...>
-           Lista suspensa (a opção salva já vem marcada ao editar):
+           QUAL TIPO USAR? (escolha pelo que o enunciado diz)
+             • sim/não (ativo, emprestado, em promoção) .... CAIXA DE MARCAR   → coluna TINYINT(1)
+             • poucas opções fixas (status, turno) ......... LISTA SUSPENSA    → coluna VARCHAR com o texto
+             • escolher UMA opção, todas visíveis .......... BOTÕES DE OPÇÃO   → coluna VARCHAR com o texto
+             • categoria/curso CADASTRADO em outra tabela .. LISTA DO BANCO    → coluna INT (categoria_id)
+
+           1) Lista suspensa com opções FIXAS (a opção salva já vem marcada ao editar):
              <select id="categoria" name="categoria" required>
                <option value="">Selecione...</option>
                <option value="Periféricos" <?= $registro['categoria'] === 'Periféricos' ? 'selected' : '' ?>>Periféricos</option>
                <option value="Monitores"   <?= $registro['categoria'] === 'Monitores'   ? 'selected' : '' ?>>Monitores</option>
              </select>
+             (no salvar.php:  $categoria = trim($_POST['categoria'] ?? '');  e confira com in_array)
+
+           2) Caixa de marcar, sim/não (ex.: "ativo"). A coluna é TINYINT(1): 1 = marcado, 0 = desmarcado:
+             <label>
+               <input type="checkbox" name="ativo" value="1" <?= $registro['ativo'] ? 'checked' : '' ?>>
+               Produto ativo
+             </label>
+             (no salvar.php:  $ativo = isset($_POST['ativo']) ? 1 : 0;
+              caixa DESMARCADA não envia nada ao servidor, por isso o isset: se chegou, está marcada.)
+
+           3) Botões de opção, escolhe UMA (ex.: "tipo"). A opção salva já vem marcada ao editar:
+             <label><input type="radio" name="tipo" value="Novo"  <?= $registro['tipo'] === 'Novo'  ? 'checked' : '' ?>> Novo</label>
+             <label><input type="radio" name="tipo" value="Usado" <?= $registro['tipo'] === 'Usado' ? 'checked' : '' ?>> Usado</label>
+             (no salvar.php:  $tipo = trim($_POST['tipo'] ?? '');  nenhum marcado = vazio: valide se for obrigatório.)
+
+           4) Lista suspensa com opções do BANCO (ex.: categoria que está na tabela "categorias").
+              O produto guarda só o NÚMERO da categoria, na coluna categoria_id.
+              Precisa da linha $categorias = ... que está lá em CIMA, no começo deste arquivo:
+             <select id="categoria_id" name="categoria_id" required>
+               <option value="">Selecione...</option>
+               <?php foreach ($categorias as $c): ?>
+                 <option value="<?= $c['id'] ?>" <?= $c['id'] == $registro['categoria_id'] ? 'selected' : '' ?>><?= e($c['nome']) ?></option>
+               <?php endforeach; ?>
+             </select>
+             (no salvar.php:  $categoria_id = (int)($_POST['categoria_id'] ?? 0);  e confira se esse ID existe.)
          (Esses exemplos são só referência: estão dentro de um comentário e não aparecem na tela.) */
       ?>
 

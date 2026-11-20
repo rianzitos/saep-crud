@@ -7,9 +7,6 @@ adaptar ao que a prova pedir.
 > 🎬 **Prefere ver em vídeo?** Assista ao `tutorial/tutorial-saep-crud.mp4` (narrado, ~9 min): mostra tudo
 > deste guia, do XAMPP até adaptar o sistema para a prova.
 
-> 🏋️ **Quer treinar antes da prova?** A pasta [`treino/`](treino/LEIAME.md) tem **3 simulados** (biblioteca, clínica e escola),
-> cada um com Fase 1, Fase 2 (mudança de requisito), critérios de nota e **gabarito testado**.
-
 ---
 
 ## 1. Passo a passo do zero (faça na ordem)
@@ -153,6 +150,17 @@ O campo novo aparece em **4 arquivos**:
 3. `form.php` → chave no array `$registro` + um bloco `<div class="campo">` com o `<input>`.
 4. `salvar.php` → variável `$_POST`, validação (se precisar), e o campo no `UPDATE` (SET + array)
    e no `INSERT` (colunas + VALUES + array).
+
+### Qual tipo de campo usar? (sim/não, lista, categoria...)
+| O enunciado diz | No formulário | Coluna no banco | No `salvar.php` |
+|-----------------|---------------|-----------------|-----------------|
+| sim/não (ativo, em promoção) | caixa de marcar (`checkbox`) | `TINYINT(1)` | `$ativo = isset($_POST['ativo']) ? 1 : 0;` |
+| poucas opções fixas (status, turno) | lista suspensa (`select`) com opções escritas no HTML | `VARCHAR` com o texto | `in_array($status, [...], true)` |
+| escolher uma, todas visíveis | botões de opção (`radio`) | `VARCHAR` com o texto | `$tipo = trim($_POST['tipo'] ?? '');` |
+| categoria **cadastrada em outra tabela** | lista suspensa com `foreach` nas opções do banco | `INT` (`categoria_id`) + `FOREIGN KEY` | `(int)` e conferir se o ID existe |
+
+Os **exemplos prontos** (e o `JOIN` para mostrar o nome da categoria na lista) estão nos comentários
+`ADAPTAR` do `form.php`, `salvar.php`, `index.php`, `excluir.php` e `banco.sql`. Procure por **`categoria`** com `Ctrl+F`.
 
 ### Chave primária com outro nome (ex.: `codigo`, `id_livro`)
 Troque `id` pela coluna real **só no SQL e no `$r['id']`**: `ORDER BY id` e `$r['id']` (3x) no

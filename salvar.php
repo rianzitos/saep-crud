@@ -36,6 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 //         $estoque = $_POST['estoque'] ?? '';
 //     • Campo opcional de DATA ou NÚMERO: se vier vazio, grave NULL em vez de '' (senão o MySQL recusa):
 //         $data = ($_POST['data'] ?? '') !== '' ? $_POST['data'] : null;
+//     • CAIXA DE MARCAR (sim/não):   $ativo = isset($_POST['ativo']) ? 1 : 0;      (desmarcada não envia nada)
+//     • LISTA SUSPENSA fixa ou BOTÕES DE OPÇÃO (texto):   $status = trim($_POST['status'] ?? '');
+//     • LISTA SUSPENSA com ID do banco (ex.: categoria):  $categoria_id = (int)($_POST['categoria_id'] ?? 0);
+//         Categoria OPCIONAL (pode ficar em branco)? Grave NULL (a coluna tem que aceitar NULL):
+//         $categoria_id = ($_POST['categoria_id'] ?? '') !== '' ? (int)$_POST['categoria_id'] : null;
 $id         = (int)($_POST['id'] ?? 0);
 $nome       = trim($_POST['nome'] ?? '');
 $descricao  = trim($_POST['descricao'] ?? '');
@@ -54,6 +59,11 @@ $voltar = 'form.php' . ($id > 0 ? "?id=$id&" : '?');
 //     e-mail ................ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) → 'E-mail inválido.'
 //     opção de lista (select) if (!in_array($status, ['Agendada', 'Cancelada'], true)) → 'Status inválido.'
 //                            (o usuário pode alterar o select pelo navegador: confira também no servidor)
+//     opção que é um ID de OUTRA TABELA (ex.: categoria): confira se esse ID existe, assim:
+//                            $ok = $pdo->prepare("SELECT COUNT(*) FROM categorias WHERE id = :id");
+//                            $ok->execute([':id' => $categoria_id]);
+//                            if (!$ok->fetchColumn())                                  → 'Categoria inválida.'
+//     caixa de marcar ....... não precisa de validação: o isset já devolve só 0 ou 1.
 //     nota entre 0 e 10 ..... if (!is_numeric($nota) || $nota < 0 || $nota > 10)  → 'Nota inválida.'
 //     data (AAAA-MM-DD) ..... $d = DateTime::createFromFormat('Y-m-d', $data);
 //                             if (!$d || $d->format('Y-m-d') !== $data)            → 'Data inválida.'

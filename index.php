@@ -32,6 +32,15 @@ $busca = trim($_GET['busca'] ?? '');
 //     • Buscar em mais uma coluna? Acrescente:  OR outra_coluna LIKE :b
 //     • Outra ordem? Troque o ORDER BY. Ex.: ORDER BY nome ASC (A→Z)  |  ORDER BY preco DESC
 //       Dois critérios: ORDER BY data_consulta ASC, horario ASC  (primeiro a data, depois a hora)
+//     • Mostrar o NOME da categoria? A coluna categoria_id guarda só o número: junte as tabelas (JOIN):
+//           SELECT p.*, c.nome AS categoria
+//             FROM produtos p LEFT JOIN categorias c ON c.id = p.categoria_id
+//            WHERE p.nome LIKE :b OR c.nome LIKE :b
+//            ORDER BY p.id DESC
+//         - ponha p. e c. antes de CADA coluna: as duas tabelas têm "nome" e, sem isso, dá erro "ambiguous";
+//         - faça o mesmo no SELECT sem busca (só tire o WHERE);
+//         - LEFT JOIN = o produto aparece mesmo sem categoria (aí a categoria vem vazia, NULL);
+//         - na tabela, use o apelido: $r['categoria'] (veja o comentário ADAPTAR 5, mais embaixo).
 if ($busca !== '') {
   $stmt = $pdo->prepare("SELECT * FROM produtos WHERE nome LIKE :b OR descricao LIKE :b ORDER BY id DESC");
   $stmt->execute([':b' => "%$busca%"]);
@@ -174,6 +183,9 @@ $erro = $_GET['erro'] ?? '';
                  dinheiro ..... <td>R$ <?= number_format($r['preco'], 2, ',', '.') ?></td>
                  data ......... <td><?= date('d/m/Y', strtotime($r['data_cadastro'])) ?></td>
                  hora ......... <td><?= substr($r['horario'], 0, 5) ?></td>        (10:30:00 vira 10:30)
+                 sim/não (0 ou 1) ... <td><?= $r['ativo'] ? 'Sim' : 'Não' ?></td>
+                 categoria (veio do JOIN, apelido "categoria"):
+                               <td><?= e($r['categoria'] ?? '-') ?></td>     (o  ?? '-'  cobre o produto sem categoria)
                  coluna CALCULADA (não existe no banco; o PHP calcula na hora com outras colunas):
                                <td><?= number_format(($r['nota1'] + $r['nota2']) / 2, 1, ',', '.') ?></td>
                  texto conforme uma regra (ex.: situação do aluno): faça a conta ANTES do <td>, assim:

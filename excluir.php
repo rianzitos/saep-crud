@@ -32,6 +32,12 @@ try {
     header('Location: index.php?msg=' . urlencode('Registro excluído com sucesso!'));
 } catch (PDOException $e) {
     // Cai aqui, por exemplo, se o registro estiver ligado a outra tabela (chave estrangeira).
+    // >>> ADAPTAR (opcional): apagar algo que está EM USO (ex.: uma categoria que tem produtos) dá o erro 1451.
+    //     Para uma mensagem amigável, antes da linha abaixo coloque:
+    //         if ($e->errorInfo[1] == 1451) {
+    //             header('Location: index.php?erro=' . urlencode('Não é possível excluir: este registro está em uso.'));
+    //             exit;
+    //         }
     header('Location: index.php?erro=' . urlencode('Erro ao excluir: ' . $e->getMessage()));
 }
 exit;

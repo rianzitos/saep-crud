@@ -23,8 +23,31 @@
 --     texto curto ......... VARCHAR(100)        texto longo ......... TEXT
 --     número inteiro ...... INT                 dinheiro/decimal .... DECIMAL(10,2)
 --     data ................ DATE                data e hora ......... DATETIME
---     sim/não ............. TINYINT(1)
+--     sim/não ............. TINYINT(1)   (1 = sim, 0 = não: é a coluna da CAIXA DE MARCAR do form.php)
 --     NOT NULL = obrigatório | NULL = opcional | DEFAULT 0 = valor padrão
+--
+--   CATEGORIA escolhida numa lista? Depende de onde as opções ficam:
+--     • poucas opções que nunca mudam ......... coluna  categoria VARCHAR(50)  com o TEXTO (e <select> fixo no form.php)
+--     • opções cadastradas em OUTRA tabela .... tabela categorias + coluna categoria_id (veja o exemplo abaixo)
+--
+--     CREATE TABLE categorias (
+--       id    INT AUTO_INCREMENT PRIMARY KEY,
+--       nome  VARCHAR(50) NOT NULL
+--     );
+--     INSERT INTO categorias (nome) VALUES ('Periféricos'), ('Monitores'), ('Áudio');
+--
+--     CREATE TABLE produtos (
+--       id            INT AUTO_INCREMENT PRIMARY KEY,
+--       nome          VARCHAR(100) NOT NULL,
+--       categoria_id  INT NULL,                       -- guarda só o NÚMERO da categoria
+--       FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+--     );
+--   • Crie "categorias" ANTES de "produtos". Para apagar tudo, o contrário: DROP TABLE IF EXISTS produtos;
+--     e só depois DROP TABLE IF EXISTS categorias;
+--   • Tabela produtos já existe? ALTER TABLE produtos ADD categoria_id INT NULL,
+--                                 ADD FOREIGN KEY (categoria_id) REFERENCES categorias(id);
+--   • A FOREIGN KEY é opcional: ela só impede apagar uma categoria que está em uso.
+--   • Depois: form.php (lista do banco), salvar.php (categoria_id) e index.php (JOIN para mostrar o nome).
 --
 --   Exemplo — a prova pede LIVROS (titulo, autor, preco, estoque):
 --     CREATE TABLE livros (
