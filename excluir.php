@@ -9,6 +9,7 @@
 //     3) Mensagem de sucesso
 //     Só isso! Este é o arquivo mais simples de adaptar.
 // =====================================================================
+require 'auth.php';   // exige login
 require 'conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

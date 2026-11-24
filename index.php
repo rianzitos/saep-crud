@@ -23,6 +23,7 @@
 //     8) Alerta de estoque: blocos [ALERTA-ESTOQUE] (manter, ajustar ou remover)
 //     9) Visual (cores/tema): NÃO é aqui. Troque o conteúdo do style.css (veja o começo dele).
 // =====================================================================
+require 'auth.php';   // exige login
 require 'conexao.php';
 
 $busca = trim($_GET['busca'] ?? '');
@@ -103,7 +104,10 @@ $erro = $_GET['erro'] ?? '';
     <header class="topo">
       <?php /* >>> ADAPTAR (3): troque o título da página. Ex.: <h1>Livros</h1> (e "+ Novo" se quiser) */ ?>
       <h1>Produtos</h1>
-      <a href="form.php" class="btn btn-primary">+ Novo</a>
+      <div style="display:flex;gap:8px;align-items:center">
+        <a href="form.php" class="btn btn-primary">+ Novo</a>
+        <a href="logout.php" class="btn btn-secondary">Sair</a>
+      </div>
     </header>
 
     <?php if ($msg): ?>

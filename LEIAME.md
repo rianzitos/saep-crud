@@ -63,7 +63,10 @@ Abra `conexao.php` e confira a linha `$senha`:
 ### Passo 5: Abrir o sistema
 No navegador: **`http://localhost/saep-crud/`**
 
+Vai aparecer a **tela de login**. Entre com **usuário `admin`** e **senha `admin123`**.
 Apareceu a lista de produtos com as faixas de alerta? Está tudo funcionando. 🎉
+
+> Já tinha importado o `banco.sql` antes desta versão? Importe de novo (ele cria a tabela `usuarios`).
 
 ---
 
@@ -90,6 +93,9 @@ Apareceu a lista de produtos com as faixas de alerta? Está tudo funcionando. �
 | `form.php`    | **Formulário** de cadastrar e editar |
 | `salvar.php`  | Grava no banco (INSERT / UPDATE), com validação |
 | `excluir.php` | Apaga do banco (DELETE) |
+| `login.php`   | Tela de **login** (usuário `admin` / senha `admin123`, tabela `usuarios`) |
+| `logout.php`  | Botão **Sair**: encerra a sessão |
+| `auth.php`    | Barreira de login: toda página interna faz `require 'auth.php';` |
 | `style.css`   | **O único CSS que o sistema usa** (visual) |
 | `temas/`      | Catálogo com 6 visuais prontos. **Nenhuma página usa esta pasta** |
 | `tutorial/`   | Vídeo explicando tudo (pode apagar, não interfere no sistema) |

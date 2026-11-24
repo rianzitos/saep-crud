@@ -19,6 +19,7 @@
 //     $_POST['...'] lido no salvar.php, e o nome em $registro['...'] tem que ser
 //     IGUAL ao nome da coluna no banco.
 // =====================================================================
+require 'auth.php';   // exige login
 require 'conexao.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
