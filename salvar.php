@@ -21,6 +21,7 @@
 //     e, fora daqui, no banco.sql, form.php e index.php.
 //     Campo REMOVIDO: apague nesses mesmos lugares.
 // =====================================================================
+require 'auth.php';   // exige login
 require 'conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
